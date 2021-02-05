@@ -10,4 +10,4 @@ For the moment please see `example.go` for a simple working example
 
 ## WIP
 
-While the critical API components are ported (layer, anchors), currently the entirety `gtk_layer_shell.h` is not exported. I will be adding support over the next few months (2/5/2021).
+While the critical API components are ported (layer, anchors), currently the entirety `gtk_layer_shell.h` is only supported up to pre .5 versions of layer-shell. 
