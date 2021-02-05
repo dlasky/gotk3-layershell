@@ -17,8 +17,16 @@ func main() {
         log.Fatal("Unable to create window:", err)
     }
     layershell.InitForWindow(win)
-    layershell.SetLayer(win, layershell.LAYER_SHELL_LAYER_OVERLAY)
+    
+    layershell.SetAnchor(win, layershell.LAYER_SHELL_EDGE_LEFT,true);
+    layershell.SetAnchor(win, layershell.LAYER_SHELL_EDGE_TOP, true);
+    layershell.SetAnchor(win, layershell.LAYER_SHELL_EDGE_RIGHT,true);
+
+    layershell.SetLayer(win, layershell.LAYER_SHELL_LAYER_BOTTOM)
     layershell.SetMargin(win, layershell.LAYER_SHELL_EDGE_TOP, 0)
+    layershell.SetMargin(win, layershell.LAYER_SHELL_EDGE_LEFT, 0)
+    layershell.SetMargin(win, layershell.LAYER_SHELL_EDGE_RIGHT,0)
+    
 
     win.SetTitle("Simple Example")
     win.Connect("destroy", func() {
@@ -35,7 +43,7 @@ func main() {
     win.Add(l)
 
     // Set the default window size.
-    //win.SetDefaultSize(800, 600)
+    win.SetDefaultSize(800, 30)
 
     // Recursively show all widgets contained in this window.
     win.ShowAll()

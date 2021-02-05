@@ -33,6 +33,11 @@ func native(window *gtk.Window) *C.GtkWindow {
 	return wp;
 }
 
+func boolConv(b bool) C.int {
+	if (b) { return C.int(1)}
+	return C.int(0)
+}
+
 func InitForWindow(window *gtk.Window) {
 	w := native(window);
 	C.gtk_layer_init_for_window(w)
@@ -46,6 +51,11 @@ func SetLayer(window *gtk.Window, layer LayerShellLayerFlags) {
 func AutoExclusiveZoneEnable(window *gtk.Window) {
 	w := native(window)
 	C.gtk_layer_auto_exclusive_zone_enable(w)
+}
+
+func SetAnchor(window *gtk.Window, side LayerShellEdgeFlags, pinned bool) {
+	w := native(window)
+	C.gtk_layer_set_anchor(w, C.GtkLayerShellEdge(side), boolConv(pinned))
 }
 
 func SetMargin(window *gtk.Window, side LayerShellEdgeFlags, margin int) {
