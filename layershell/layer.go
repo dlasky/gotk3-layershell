@@ -5,6 +5,7 @@ package layershell
 // #include "gtk-layer-shell.h"
 import "C"
 import (
+	"github.com/gotk3/gotk3/gdk"
 	"github.com/gotk3/gotk3/gtk"
 	"unsafe"
 )
@@ -27,10 +28,16 @@ const (
 	LAYER_SHELL_LAYER_OVERLAY    
 )
 
-func native(window *gtk.Window) *C.GtkWindow {
+func nativeWindow(window *gtk.Window) *C.GtkWindow {
 	w := window.Native()
 	wp := (*C.GtkWindow)(unsafe.Pointer(w))
 	return wp;
+}
+
+func nativeMonitor(monitor *gdk.Monitor) *C.GdkMonitor {
+	m := monitor.Native()
+	mp := (*C.GdkMonitor)(unsafe.Pointer(m))
+	return mp;
 }
 
 func boolConv(b bool) C.int {
@@ -39,26 +46,30 @@ func boolConv(b bool) C.int {
 }
 
 func InitForWindow(window *gtk.Window) {
-	w := native(window);
+	w := nativeWindow(window);
 	C.gtk_layer_init_for_window(w)
 }
 
 func SetLayer(window *gtk.Window, layer LayerShellLayerFlags) {
-	w := native(window)
+	w := nativeWindow(window)
 	C.gtk_layer_set_layer(w, C.GtkLayerShellLayer(layer))
 }
 
 func AutoExclusiveZoneEnable(window *gtk.Window) {
-	w := native(window)
+	w := nativeWindow(window)
 	C.gtk_layer_auto_exclusive_zone_enable(w)
 }
 
 func SetAnchor(window *gtk.Window, side LayerShellEdgeFlags, pinned bool) {
-	w := native(window)
+	w := nativeWindow(window)
 	C.gtk_layer_set_anchor(w, C.GtkLayerShellEdge(side), boolConv(pinned))
 }
 
 func SetMargin(window *gtk.Window, side LayerShellEdgeFlags, margin int) {
-	w := native(window)
+	w := nativeWindow(window)
 	C.gtk_layer_set_margin(w, C.GtkLayerShellEdge(side), C.int(margin))
+}
+
+func SetMonitor(window *gtk.Window, monitor *gdk.Monitor) {
+	C.gtk_layer_set_monitor(nativeWindow(window), nativeMonitor(monitor))
 }
