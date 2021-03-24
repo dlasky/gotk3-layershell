@@ -28,6 +28,15 @@ const (
 	LAYER_SHELL_LAYER_OVERLAY    
 )
 
+type LayerShellKeyboardMode int
+
+const (
+	LAYER_SHELL_KEYBOARD_MODE_NONE LayerShellKeyboardMode= iota
+	LAYER_SHELL_KEYBOARD_MODE_EXCLUSIVE
+	LAYER_SHELL_KEYBOARD_MODE_ON_DEMAND
+	LAYER_SHELL_KEYBOARD_MODE_ENTRY_NUMBER
+)
+
 func nativeWindow(window *gtk.Window) *C.GtkWindow {
 	w := window.Native()
 	wp := (*C.GtkWindow)(unsafe.Pointer(w))
@@ -72,4 +81,9 @@ func SetMargin(window *gtk.Window, side LayerShellEdgeFlags, margin int) {
 
 func SetMonitor(window *gtk.Window, monitor *gdk.Monitor) {
 	C.gtk_layer_set_monitor(nativeWindow(window), nativeMonitor(monitor))
+}
+
+func SetKeyboardMode(window *gtk.Window, mode LayerShellKeyboardMode) {
+	w := nativeWindow(window)
+	C.gtk_layer_set_keyboard_mode(w, C.GtkLayerShellKeyboardMode(mode))
 }
