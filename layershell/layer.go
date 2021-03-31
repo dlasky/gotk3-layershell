@@ -69,6 +69,11 @@ func AutoExclusiveZoneEnable(window *gtk.Window) {
 	C.gtk_layer_auto_exclusive_zone_enable(w)
 }
 
+func SetExclusiveZone(window *gtk.Window, size int) {
+	w := nativeWindow(window)
+	C.gtk_layer_set_exclusive_zone(w, C.int(size))
+}
+
 func SetAnchor(window *gtk.Window, side LayerShellEdgeFlags, pinned bool) {
 	w := nativeWindow(window)
 	C.gtk_layer_set_anchor(w, C.GtkLayerShellEdge(side), boolConv(pinned))

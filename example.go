@@ -26,6 +26,8 @@ func main() {
     layershell.SetMargin(win, layershell.LAYER_SHELL_EDGE_TOP, 0)
     layershell.SetMargin(win, layershell.LAYER_SHELL_EDGE_LEFT, 0)
     layershell.SetMargin(win, layershell.LAYER_SHELL_EDGE_RIGHT,0)
+
+    layershell.SetExclusiveZone(win, 200)
     
 
     win.SetTitle("Simple Example")
