@@ -17,6 +17,7 @@ func main() {
         log.Fatal("Unable to create window:", err)
     }
     layershell.InitForWindow(win)
+    layershell.SetNamespace(win, "gtk-layer-shell")
     
     layershell.SetAnchor(win, layershell.LAYER_SHELL_EDGE_LEFT,true);
     layershell.SetAnchor(win, layershell.LAYER_SHELL_EDGE_TOP, true);
