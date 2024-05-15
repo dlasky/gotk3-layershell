@@ -64,6 +64,13 @@ func SetLayer(window *gtk.Window, layer LayerShellLayerFlags) {
 	C.gtk_layer_set_layer(w, C.GtkLayerShellLayer(layer))
 }
 
+func SetNamespace(window *gtk.Window, name string) {
+	w := nativeWindow(window)
+	cName := C.CString(name)
+	C.gtk_layer_set_namespace(w, cName)
+	C.free(unsafe.Pointer(cName))
+}
+
 func AutoExclusiveZoneEnable(window *gtk.Window) {
 	w := nativeWindow(window)
 	C.gtk_layer_auto_exclusive_zone_enable(w)
